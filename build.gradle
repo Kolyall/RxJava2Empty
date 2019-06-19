@@ -1,0 +1,46 @@
+apply plugin: 'kotlin'
+
+buildscript {
+    ext.kotlin_version = '1.3.31'
+    repositories {
+        mavenLocal()
+        google()
+        jcenter()
+        maven { url 'https://maven.fabric.io/public' }
+        //region realm
+        maven { url 'http://oss.jfrog.org/artifactory/oss-snapshot-local' }
+        maven { url 'https://dl.bintray.com/realm/maven' }
+        //endregion
+    }
+    dependencies {
+        //region google()
+        classpath 'com.android.tools.build:gradle:3.4.1'
+        //endregion
+        //region jcenter()
+        classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:$kotlin_version"
+        //endregion
+    }
+}
+
+allprojects {
+    repositories {
+        mavenLocal()
+        google()
+        jcenter()
+        mavenCentral()
+        maven { url "https://dl.bintray.com/nickunuchek/maven" }
+        maven { url "https://jitpack.io" }
+        maven { url 'https://maven.fabric.io/public' }
+    }
+}
+
+compileKotlin {
+    kotlinOptions {
+        jvmTarget = "1.8"
+    }
+}
+compileTestKotlin {
+    kotlinOptions {
+        jvmTarget = "1.8"
+    }
+}
