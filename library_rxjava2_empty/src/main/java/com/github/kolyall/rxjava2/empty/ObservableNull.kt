@@ -22,10 +22,14 @@ object ObservableNull {
     @NonNull
     @SchedulerSupport(SchedulerSupport.NONE)
     fun <T> fromIterable(iterable: Iterable<T>?): Observable<T> {
-        return if (iterable == null) {
+        return if (iterable == null || iterable.count() == 0) {
             Observable.empty()
         } else {
-            Observable.fromIterable(iterable.filter { it != null })
+            val filtered = iterable.filter { it != null }
+            if (filtered.isEmpty()){
+                return Observable.empty()
+            }
+            Observable.fromIterable(filtered)
         }
     }
 }
